@@ -36,8 +36,10 @@ class ParticleSet {
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
         ctx.fillStyle = "white";
         ctx.fill();
-        p.x += p.speed;
-        p.y += p.speed;
+        if(p.speed) {
+          p.x += p.speed;
+          p.y += p.speed;
+        }
       }
     }
     animationID = requestAnimationFrame(this.draw.bind(this));
@@ -106,8 +108,10 @@ class Circle extends ParticleSet {
         ctx.arc(p.x, p.y, 2, 0, Math.PI * 2);
         ctx.fillStyle = "white";
         ctx.fill();
-        p.x += p.speed * Math.sin(p.angle);
-        p.y += p.speed * Math.cos(p.angle);
+        if(p.speed) {
+          p.x += p.speed * Math.sin(p.angle);
+          p.y += p.speed * Math.cos(p.angle);
+        }
       }
     }
     animationID = requestAnimationFrame(this.draw.bind(this));
