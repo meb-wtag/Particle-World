@@ -14,9 +14,9 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 canvas.addEventListener("click", (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
-  particle = new ParticleSet(mouseX, mouseY, 10, 1);
-  particle.initialize();
+  circle = new Circle(mouseX, mouseY, 360, 1, 10);
+  circle.initialize();
   if (!animationID) {
-    particle.draw();
+    circle.draw();
   }
 });
