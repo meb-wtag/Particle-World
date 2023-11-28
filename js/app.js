@@ -13,7 +13,7 @@ ctx.fillRect(0, 0, canvas.width, canvas.height);
 canvas.addEventListener("click", (e) => {
   mouseX = e.clientX;
   mouseY = e.clientY;
-  circle = new LayeredParticleSet(mouseX, mouseY, 30, 360, 1, 3);
+  circle = new LayeredParticleSet(mouseX, mouseY, 20, 360, 1, 3, true);
   if (!animationID) {
     circle.draw();
   }

@@ -1,7 +1,7 @@
 class LayeredParticleSet {
   static instances = [];
 
-  constructor(originX, originY, numberOfSets, numberOfParticles, speed, offset) {
+  constructor(originX, originY, numberOfSets, numberOfParticles, speed, offset, reflective) {
     this.originX = originX;
     this.originY = originY;
     this.numberOfSets = numberOfSets;
@@ -9,6 +9,7 @@ class LayeredParticleSet {
     this.speed = speed;
     this.particleSets = [];
     this.offset = offset;
+    this.reflective = reflective;
     this.initialize(this.originX, this.originY);
   }
 
@@ -20,9 +21,13 @@ class LayeredParticleSet {
         let radius = (2 * Math.PI * i)/this.numberOfParticles;
         x = mouseX + ((n+1)*this.offset) * Math.sin(radius);
         y = mouseY + ((n+1)*this.offset) * Math.cos(radius);
+        let speedX = this.speed;
+        let speedY = this.speed;
         particleSet.push({
           x,
-          y
+          y,
+          speedX,
+          speedY
         });
       }
       this.particleSets.push(particleSet);
@@ -51,8 +56,23 @@ class LayeredParticleSet {
         for (let i = 0; i < particleSet.length; i++) {
           const p = particleSet[i];
           const angle = (Math.PI * 2) * (i / particleSet.length);
-          p.x += this.speed * Math.sin(angle);
-          p.y += this.speed * Math.cos(angle);
+          let xFactor = Math.sin(angle);
+          let yFactor = Math.cos(angle);
+          if(!this.reflective) {
+            p.x += p.speedX * xFactor;
+            p.y += p.speedY * yFactor;
+          }else {
+            if(p.speedX && p.speedY) {
+              p.x += p.speedX * xFactor;
+              p.y += p.speedY * yFactor;
+            }
+            if (p.x > canvas.width || p.x < 0) {
+              p.speedX = -p.speedX;
+            }
+            if (p.y > canvas.height || p.y < 0) {
+              p.speedY = -p.speedY;
+            }
+          }
         }
       }
     }
